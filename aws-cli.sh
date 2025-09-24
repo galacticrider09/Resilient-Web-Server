@@ -34,3 +34,22 @@ aws cloudformation create-stack \
     --template-body file://~/coding_folder/cloud-formation-templates/iamrole.yaml\
     --capabilities CAPABILITY_NAMED_IAM
 ##this command creates the stack for iam role with ec2 and cloudwatch full access. ☝️
+
+aws cloudformation create-stack \
+    --stack-name networking-vpc-stack-996 \
+    --template-body file://~/coding_folder/cloud-formation-templates/networking.yaml\
+    --capabilities CAPABILITY_IAM
+#created networking stack using this command 👆
+
+
+aws cloudformation create-stack \
+    --stack-name lauunch-template-stack-996 \
+    --template-body file://~/coding_folder/cloud-formation-templates/instance-launchtemp.yaml\
+    --capabilities CAPABILITY_IAM
+#created launch template stack using this command 👆
+
+aws cloudformation create-stack \
+    --stack-name auto-sg-996 \
+    --template-body file://~/coding_folder/cloud-formation-templates/auto-scaling-group.yaml\
+    --capabilities CAPABILITY_IAM
+#created  auto scaling group stack using this command 👆

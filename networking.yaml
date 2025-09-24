@@ -29,14 +29,17 @@ Parameters:
 
   Az1:
     Type: AWS::EC2::AvailabilityZone::Name
+    Default: ap-south-1a
     Description: Availability Zone for Subnet 1
 
   Az2:
     Type: AWS::EC2::AvailabilityZone::Name
+    Default: ap-south-1b
     Description: Availability Zone for Subnet 2
 
   Az3:
     Type: AWS::EC2::AvailabilityZone::Name
+    Default: ap-south-1c
     Description: Availability Zone for Subnet 3
 
   SecurityGroupName:

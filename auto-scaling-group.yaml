@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Auto Scaling Group with CloudWatch Alarms
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Default: vpc-0737683c8fa2468af
+    Description: VPC where ASG will run
+
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Default: subnet-0a0d6e47df7bc4e87,subnet-00431e5b4f9f0e0f3,subnet-0709e443feab5313f
+    Description: Subnets for Auto Scaling Group (select 3 public subnets)
+
+  LaunchTemplateId:
+    Type: String
+    Default: lt-0e34e387d58c31688
+    Description: ID of existing EC2 Launch Template
+
+Resources:
+  MyASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier: !Ref SubnetIds
+      MinSize: 2
+      MaxSize: 5
+      DesiredCapacity: 2
+      LaunchTemplate:
+        LaunchTemplateId: !Ref LaunchTemplateId
+        Version: 1
+      HealthCheckType: EC2
+      HealthCheckGracePeriod: 300
+      Tags:
+        - Key: Name
+          Value: ASG-WebServers
+          PropagateAtLaunch: true
+
+  # Scaling Policy
+  ScaleOutPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AutoScalingGroupName: !Ref MyASG
+      PolicyType: SimpleScaling
+      AdjustmentType: ChangeInCapacity
+      ScalingAdjustment: 1
+
+  # Alarm for CPU ≥ 40%
+  HighCPUAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Scale out when CPU >= 40%
+      Namespace: AWS/EC2
+      MetricName: CPUUtilization
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref MyASG
+      Statistic: Average
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: 40
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      AlarmActions:
+        - !Ref ScaleOutPolicy
+
+Outputs:
+  AutoScalingGroupName:
+    Description: Name of the Auto Scaling Group
+    Value: !Ref MyASG

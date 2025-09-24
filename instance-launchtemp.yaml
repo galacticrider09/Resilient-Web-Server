@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Launch Template with EC2 Role, Security Group, and UserData script
+
+Parameters:
+  LaunchTemplateName:
+    Type: String
+    Default: launchtemp-project-996
+    Description: Name for the EC2 Launch Template
+
+  InstanceType:
+    Type: String
+    Default: t3.micro
+    Description: EC2 instance type
+
+  AmiId:
+    Type: AWS::EC2::Image::Id
+    Default: ami-08e5424edfe926b43  # Example Amazon Linux 2 in ap-south-1, replace as needed
+    Description: AMI ID for EC2
+
+  IamInstanceProfile:
+    Type: String
+    Default: EC2-CW-fullaccess-996-project-role
+    Description: IAM Instance Profile name with required permissions
+
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security Group ID to attach
+    Default: sg-022bb95f37bbbce81  # replace with your SG ID (MySg_web_ssh)
+
+Resources:
+
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: !Ref LaunchTemplateName
+      LaunchTemplateData:
+        ImageId: !Ref AmiId
+        InstanceType: !Ref InstanceType
+        IamInstanceProfile:
+          Name: !Ref IamInstanceProfile
+        SecurityGroupIds:
+          - !Ref SecurityGroupId
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            yum install -y httpd awscli
+            sleep 5
+            aws s3 sync s3://project-website-bucket1 /var/www/html/ --region ap-south-1
+            sleep 5
+            echo $(hostname) >> /var/www/html/index.html
+            service httpd restart
+
+Outputs:
+  LaunchTemplateId:
+    Description: ID of the Launch Template
+    Value: !Ref MyLaunchTemplate
