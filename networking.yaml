@@ -1,0 +1,179 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Parameterized VPC with 3 Public Subnets, IGW, Route Table, and Security Group
+
+Parameters:
+  VpcCidr:
+    Type: String
+    Default: 10.0.0.0/16
+    Description: CIDR block for the VPC
+
+  VpcName:
+    Type: String
+    Default: vpc-for-project
+    Description: Name tag for the VPC
+
+  PublicSubnet1Cidr:
+    Type: String
+    Default: 10.0.1.0/24
+    Description: CIDR block for Public Subnet 1
+
+  PublicSubnet2Cidr:
+    Type: String
+    Default: 10.0.2.0/24
+    Description: CIDR block for Public Subnet 2
+
+  PublicSubnet3Cidr:
+    Type: String
+    Default: 10.0.3.0/24
+    Description: CIDR block for Public Subnet 3
+
+  Az1:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: Availability Zone for Subnet 1
+
+  Az2:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: Availability Zone for Subnet 2
+
+  Az3:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: Availability Zone for Subnet 3
+
+  SecurityGroupName:
+    Type: String
+    Default: MySg_web_ssh
+    Description: Security Group Name
+
+Resources:
+
+  # VPC
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref VpcName
+
+  # Internet Gateway
+  MyIGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-igw"
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyVPC
+      InternetGatewayId: !Ref MyIGW
+
+  # Public Subnets
+  MyPub1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Ref PublicSubnet1Cidr
+      AvailabilityZone: !Ref Az1
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-pub1"
+
+  MyPub2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Ref PublicSubnet2Cidr
+      AvailabilityZone: !Ref Az2
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-pub2"
+
+  MyPub3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Ref PublicSubnet3Cidr
+      AvailabilityZone: !Ref Az3
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-pub3"
+
+  # Route Table
+  MyPubRt:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-pub-rt"
+
+  DefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref MyPubRt
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref MyIGW
+    DependsOn: AttachGateway
+
+  # Subnet Associations
+  Pub1Assoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyPub1
+      RouteTableId: !Ref MyPubRt
+
+  Pub2Assoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyPub2
+      RouteTableId: !Ref MyPubRt
+
+  Pub3Assoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyPub3
+      RouteTableId: !Ref MyPubRt
+
+  # Security Group
+  MySgWebSSH:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH (22) and HTTP (80) from anywhere
+      GroupName: !Ref SecurityGroupName
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Ref SecurityGroupName
+
+Outputs:
+  VPCId:
+    Description: VPC ID
+    Value: !Ref MyVPC
+  PublicSubnet1:
+    Description: Subnet ID for MyPub1
+    Value: !Ref MyPub1
+  PublicSubnet2:
+    Description: Subnet ID for MyPub2
+    Value: !Ref MyPub2
+  PublicSubnet3:
+    Description: Subnet ID for MyPub3
+    Value: !Ref MyPub3
+  SecurityGroupId:
+    Description: ID of Security Group
+    Value: !Ref MySgWebSSH

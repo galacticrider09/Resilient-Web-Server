@@ -1,10 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM Role for EC2 with S3 Full Access and CloudWatch Full Access
+
 Resources:
-  Role:
+
+  # 1) EC2 IAM Role
+  MyEC2Role:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument: <Json>
-  RolePolicy:
-    Type: AWS::IAM::RolePolicy
+      RoleName: EC2-CW-fullaccess-996-project-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: "/"
+
+  # 2) Attach AmazonS3FullAccess Policy
+  S3FullAccessPolicy:
+    Type: AWS::IAM::Policy
     Properties:
-      RoleName: <String>
-      PolicyName: <String>
+      PolicyName: S3FullAccessPolicy
+      Roles:
+        - !Ref MyEC2Role
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: "s3:*"
+            Resource: "*"
+
+  # 3) Attach CloudWatchFullAccess Policy
+  CloudWatchFullAccessPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: CloudWatchFullAccessPolicy
+      Roles:
+        - !Ref MyEC2Role
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - cloudwatch:*
+              - logs:*
+            Resource: "*"
+
+Outputs:
+  EC2RoleName:
+    Description: Name of the EC2 IAM Role
+    Value: !Ref MyEC2Role
+  EC2RoleArn:
+    Description: ARN of the EC2 IAM Role
+    Value: !GetAtt MyEC2Role.Arn

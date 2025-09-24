@@ -29,3 +29,8 @@ aws s3api put-bucket-notification-configuration \
         ]
     }'
 
+aws cloudformation create-stack \
+    --stack-name iam-role-stack \
+    --template-body file://~/coding_folder/cloud-formation-templates/iamrole.yaml\
+    --capabilities CAPABILITY_NAMED_IAM
+##this command creates the stack for iam role with ec2 and cloudwatch full access. ☝️
