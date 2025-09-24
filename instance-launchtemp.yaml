@@ -14,7 +14,7 @@ Parameters:
 
   AmiId:
     Type: AWS::EC2::Image::Id
-    Default: ami-08e5424edfe926b43  # Example Amazon Linux 2 in ap-south-1, replace as needed
+    Default: ami-01b6d88af12965bb6  # Example Amazon Linux 2 in ap-south-1, replace as needed
     Description: AMI ID for EC2
 
   IamInstanceProfile:
@@ -25,7 +25,13 @@ Parameters:
   SecurityGroupId:
     Type: AWS::EC2::SecurityGroup::Id
     Description: Security Group ID to attach
-    Default: sg-022bb95f37bbbce81  # replace with your SG ID (MySg_web_ssh)
+    Default: sg-022bb95f37bbbce81 # replace with your SG ID (MySg_web_ssh)
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: the_1ec2_key
+    Description: Name of an existing EC2 Key Pair to allow SSH access
+
 
 Resources:
 
@@ -35,6 +41,7 @@ Resources:
       LaunchTemplateName: !Ref LaunchTemplateName
       LaunchTemplateData:
         ImageId: !Ref AmiId
+        KeyName: !Ref KeyName 
         InstanceType: !Ref InstanceType
         IamInstanceProfile:
           Name: !Ref IamInstanceProfile

@@ -44,7 +44,7 @@ Parameters:
 
   SecurityGroupName:
     Type: String
-    Default: MySg_web_ssh
+    Default: sg-022bb95f37bbbce81
     Description: Security Group Name
 
 Resources:

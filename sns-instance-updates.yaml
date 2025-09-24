@@ -1,22 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: SNS Topic for Auto Scaling Notifications
+Description: SNS Topic for Auto Scaling Group notifications
 
 Parameters:
-  AutoScalingGroupName:
-    Type: String
-    Default: 
-    Description: Name of the Auto Scaling Group to monitor
-
   NotificationEmail:
     Type: String
+    Default: nayanyeole0517@gmail.com
     Description: Email to receive Auto Scaling notifications
 
 Resources:
+  # SNS Topic for ASG notifications
   ASGSNSTopic:
     Type: AWS::SNS::Topic
     Properties:
       TopicName: asg-instance-alerts
 
+  # Email subscription to the SNS Topic
   ASGSNSSubscription:
     Type: AWS::SNS::Subscription
     Properties:
@@ -24,18 +22,7 @@ Resources:
       Protocol: email
       Endpoint: !Ref NotificationEmail
 
-  ASGNotification:
-    Type: AWS::AutoScaling::Notification
-    Properties:
-      AutoScalingGroupName: !Ref AutoScalingGroupName
-      NotificationTypes:
-        - autoscaling:EC2_INSTANCE_LAUNCH
-        - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
-        - autoscaling:EC2_INSTANCE_TERMINATE
-        - autoscaling:EC2_INSTANCE_TERMINATE_ERROR
-      TopicARN: !Ref ASGSNSTopic
-
 Outputs:
   SNSTopicArn:
-    Description: ARN of SNS Topic for ASG Notifications
+    Description: ARN of the SNS Topic for ASG notifications
     Value: !Ref ASGSNSTopic

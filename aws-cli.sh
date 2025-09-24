@@ -53,3 +53,23 @@ aws cloudformation create-stack \
     --template-body file://~/coding_folder/cloud-formation-templates/auto-scaling-group.yaml\
     --capabilities CAPABILITY_IAM
 #created  auto scaling group stack using this command 👆
+
+
+#had to create something called instance profile for the role to work properly this is the cli command for that
+aws iam create-instance-profile --instance-profile-name EC2-CW-fullaccess-996-project-role
+aws iam add-role-to-instance-profile \
+    --instance-profile-name EC2-CW-fullaccess-996-project-role \
+    --role-name EC2-CW-fullaccess-996-project-role
+
+
+aws cloudformation create-stack \
+    --stack-name sns-asg-instance-creation \
+    --template-body file://~/coding_folder/cloud-formation-templates/sns-instance-updates.yaml\
+    --capabilities CAPABILITY_IAM
+#created  sns updates for instance creation stack using this command 👆
+#do this then i have to add a notification configerations in the auto-scaling-group.
+aws cloudformation update-stack \
+  --stack-name  auto-sg-996 \
+  --template-body file://~/coding_folder/cloud-formation-templates/auto-scaling-group.yaml\
+  --capabilities CAPABILITY_IAM
+#we have to use this command to update the stack with changes

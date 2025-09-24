@@ -14,7 +14,7 @@ Parameters:
 
   LaunchTemplateId:
     Type: String
-    Default: lt-0e34e387d58c31688
+    Default: lt-08305f3b672dbc6ca
     Description: ID of existing EC2 Launch Template
 
 Resources:
@@ -30,6 +30,13 @@ Resources:
         Version: 1
       HealthCheckType: EC2
       HealthCheckGracePeriod: 300
+      NotificationConfigurations:
+        - TopicARN: arn:aws:sns:ap-south-1:533266961622:asg-instance-alerts
+          NotificationTypes:
+            - autoscaling:EC2_INSTANCE_LAUNCH
+            - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
+            - autoscaling:EC2_INSTANCE_TERMINATE
+            - autoscaling:EC2_INSTANCE_TERMINATE_ERROR
       Tags:
         - Key: Name
           Value: ASG-WebServers
@@ -61,6 +68,7 @@ Resources:
       ComparisonOperator: GreaterThanOrEqualToThreshold
       AlarmActions:
         - !Ref ScaleOutPolicy
+      
 
 Outputs:
   AutoScalingGroupName:
