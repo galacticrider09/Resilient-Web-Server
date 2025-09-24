@@ -1,0 +1,10 @@
+Resources:
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: <Json>
+  RolePolicy:
+    Type: AWS::IAM::RolePolicy
+    Properties:
+      RoleName: <String>
+      PolicyName: <String>

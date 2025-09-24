@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Attach SNS notifications to an existing S3 bucket
+
+Parameters:
+  ExistingBucketName: 
+    Type: String
+    Default: project-bucket-996
+    Description: Name of the existing S3 bucket to monitor
+  NotificationEmail: 
+    Type: String
+    Default: nayanyeole0517@gmail.com
+    Description: Email to receive S3 notifications
+
+Resources:
+
+  # 1) SNS Topic
+  MySNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: S3-Upload-Notifications
+
+  # 2) SNS Topic Subscription (email)
+  MySNSSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn: !Ref MySNSTopic
+      Endpoint: !Ref NotificationEmail
+
+  # 3) SNS Topic Policy to allow S3 to publish
+  SNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref MySNSTopic
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowS3Publish
+            Effect: Allow
+            Principal: "*"
+            Action: sns:Publish
+            Resource: !Ref MySNSTopic
+            Condition:
+              ArnLike:
+                aws:SourceArn: !Sub "arn:aws:s3:::${ExistingBucketName}"
+
+Outputs:
+  SNSTopicArn:
+    Description: SNS Topic ARN
+    Value: !Ref MySNSTopic
