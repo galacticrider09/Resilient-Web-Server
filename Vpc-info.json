@@ -1,0 +1,309 @@
+{
+  "vpc": {
+    "OwnerId": "533266961622",
+    "InstanceTenancy": "default",
+    "CidrBlockAssociationSet": [
+      {
+        "AssociationId": "vpc-cidr-assoc-0e6983a232b42c6a5",
+        "CidrBlock": "10.0.0.0/16",
+        "CidrBlockState": {
+          "State": "associated"
+        }
+      }
+    ],
+    "IsDefault": false,
+    "Tags": [
+      {
+        "Key": "Name",
+        "Value": "vpc-for-project"
+      },
+      {
+        "Key": "aws:cloudformation:stack-id",
+        "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+      },
+      {
+        "Key": "aws:cloudformation:logical-id",
+        "Value": "MyVPC"
+      },
+      {
+        "Key": "aws:cloudformation:stack-name",
+        "Value": "networking-vpc-stack-996"
+      }
+    ],
+    "BlockPublicAccessStates": {
+      "InternetGatewayBlockMode": "off"
+    },
+    "VpcId": "vpc-0737683c8fa2468af",
+    "State": "available",
+    "CidrBlock": "10.0.0.0/16",
+    "DhcpOptionsId": "dopt-0f74eddf2c8841d90"
+  },
+  "subnets": [
+    {
+      "AvailabilityZoneId": "aps1-az3",
+      "MapCustomerOwnedIpOnLaunch": false,
+      "OwnerId": "533266961622",
+      "AssignIpv6AddressOnCreation": false,
+      "Ipv6CidrBlockAssociationSet": [],
+      "Tags": [
+        {
+          "Key": "aws:cloudformation:stack-id",
+          "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+        },
+        {
+          "Key": "aws:cloudformation:stack-name",
+          "Value": "networking-vpc-stack-996"
+        },
+        {
+          "Key": "Name",
+          "Value": "vpc-for-project-pub2"
+        },
+        {
+          "Key": "aws:cloudformation:logical-id",
+          "Value": "MyPub2"
+        }
+      ],
+      "SubnetArn": "arn:aws:ec2:ap-south-1:533266961622:subnet/subnet-0a0d6e47df7bc4e87",
+      "EnableDns64": false,
+      "Ipv6Native": false,
+      "PrivateDnsNameOptionsOnLaunch": {
+        "HostnameType": "ip-name",
+        "EnableResourceNameDnsARecord": false,
+        "EnableResourceNameDnsAAAARecord": false
+      },
+      "BlockPublicAccessStates": {
+        "InternetGatewayBlockMode": "off"
+      },
+      "SubnetId": "subnet-0a0d6e47df7bc4e87",
+      "State": "available",
+      "VpcId": "vpc-0737683c8fa2468af",
+      "CidrBlock": "10.0.2.0/24",
+      "AvailableIpAddressCount": 250,
+      "AvailabilityZone": "ap-south-1b",
+      "DefaultForAz": false,
+      "MapPublicIpOnLaunch": true
+    },
+    {
+      "AvailabilityZoneId": "aps1-az2",
+      "MapCustomerOwnedIpOnLaunch": false,
+      "OwnerId": "533266961622",
+      "AssignIpv6AddressOnCreation": false,
+      "Ipv6CidrBlockAssociationSet": [],
+      "Tags": [
+        {
+          "Key": "aws:cloudformation:stack-name",
+          "Value": "networking-vpc-stack-996"
+        },
+        {
+          "Key": "aws:cloudformation:stack-id",
+          "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+        },
+        {
+          "Key": "Name",
+          "Value": "vpc-for-project-pub3"
+        },
+        {
+          "Key": "aws:cloudformation:logical-id",
+          "Value": "MyPub3"
+        }
+      ],
+      "SubnetArn": "arn:aws:ec2:ap-south-1:533266961622:subnet/subnet-00431e5b4f9f0e0f3",
+      "EnableDns64": false,
+      "Ipv6Native": false,
+      "PrivateDnsNameOptionsOnLaunch": {
+        "HostnameType": "ip-name",
+        "EnableResourceNameDnsARecord": false,
+        "EnableResourceNameDnsAAAARecord": false
+      },
+      "BlockPublicAccessStates": {
+        "InternetGatewayBlockMode": "off"
+      },
+      "SubnetId": "subnet-00431e5b4f9f0e0f3",
+      "State": "available",
+      "VpcId": "vpc-0737683c8fa2468af",
+      "CidrBlock": "10.0.3.0/24",
+      "AvailableIpAddressCount": 250,
+      "AvailabilityZone": "ap-south-1c",
+      "DefaultForAz": false,
+      "MapPublicIpOnLaunch": true
+    },
+    {
+      "AvailabilityZoneId": "aps1-az1",
+      "MapCustomerOwnedIpOnLaunch": false,
+      "OwnerId": "533266961622",
+      "AssignIpv6AddressOnCreation": false,
+      "Ipv6CidrBlockAssociationSet": [],
+      "Tags": [
+        {
+          "Key": "aws:cloudformation:stack-name",
+          "Value": "networking-vpc-stack-996"
+        },
+        {
+          "Key": "Name",
+          "Value": "vpc-for-project-pub1"
+        },
+        {
+          "Key": "aws:cloudformation:logical-id",
+          "Value": "MyPub1"
+        },
+        {
+          "Key": "aws:cloudformation:stack-id",
+          "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+        }
+      ],
+      "SubnetArn": "arn:aws:ec2:ap-south-1:533266961622:subnet/subnet-0709e443feab5313f",
+      "EnableDns64": false,
+      "Ipv6Native": false,
+      "PrivateDnsNameOptionsOnLaunch": {
+        "HostnameType": "ip-name",
+        "EnableResourceNameDnsARecord": false,
+        "EnableResourceNameDnsAAAARecord": false
+      },
+      "BlockPublicAccessStates": {
+        "InternetGatewayBlockMode": "off"
+      },
+      "SubnetId": "subnet-0709e443feab5313f",
+      "State": "available",
+      "VpcId": "vpc-0737683c8fa2468af",
+      "CidrBlock": "10.0.1.0/24",
+      "AvailableIpAddressCount": 250,
+      "AvailabilityZone": "ap-south-1a",
+      "DefaultForAz": false,
+      "MapPublicIpOnLaunch": true
+    }
+  ],
+  "internet_gateways": [
+    {
+      "Attachments": [
+        {
+          "State": "available",
+          "VpcId": "vpc-0737683c8fa2468af"
+        }
+      ],
+      "InternetGatewayId": "igw-0ca5639aa1f202bce",
+      "OwnerId": "533266961622",
+      "Tags": [
+        {
+          "Key": "aws:cloudformation:stack-id",
+          "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+        },
+        {
+          "Key": "Name",
+          "Value": "vpc-for-project-igw"
+        },
+        {
+          "Key": "aws:cloudformation:logical-id",
+          "Value": "MyIGW"
+        },
+        {
+          "Key": "aws:cloudformation:stack-name",
+          "Value": "networking-vpc-stack-996"
+        }
+      ]
+    }
+  ],
+  "security_groups": [
+    {
+      "GroupId": "sg-0ba99b8c9d2dbadfc",
+      "IpPermissionsEgress": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "VpcId": "vpc-0737683c8fa2468af",
+      "SecurityGroupArn": "arn:aws:ec2:ap-south-1:533266961622:security-group/sg-0ba99b8c9d2dbadfc",
+      "OwnerId": "533266961622",
+      "GroupName": "default",
+      "Description": "default VPC security group",
+      "IpPermissions": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [
+            {
+              "UserId": "533266961622",
+              "GroupId": "sg-0ba99b8c9d2dbadfc"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "GroupId": "sg-022bb95f37bbbce81",
+      "IpPermissionsEgress": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "Tags": [
+        {
+          "Key": "aws:cloudformation:stack-name",
+          "Value": "networking-vpc-stack-996"
+        },
+        {
+          "Key": "Name",
+          "Value": "MySg_web_ssh"
+        },
+        {
+          "Key": "aws:cloudformation:logical-id",
+          "Value": "MySgWebSSH"
+        },
+        {
+          "Key": "aws:cloudformation:stack-id",
+          "Value": "arn:aws:cloudformation:ap-south-1:533266961622:stack/networking-vpc-stack-996/117abf80-9917-11f0-9696-0651d7775f65"
+        }
+      ],
+      "VpcId": "vpc-0737683c8fa2468af",
+      "SecurityGroupArn": "arn:aws:ec2:ap-south-1:533266961622:security-group/sg-022bb95f37bbbce81",
+      "OwnerId": "533266961622",
+      "GroupName": "MySg_web_ssh",
+      "Description": "Allow SSH (22) and HTTP (80) from anywhere",
+      "IpPermissions": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 80,
+          "ToPort": 80,
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        },
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 22,
+          "ToPort": 22,
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    }
+  ]
+}
