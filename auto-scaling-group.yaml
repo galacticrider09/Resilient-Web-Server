@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Auto Scaling Group with CloudWatch Alarms
-
+#auto-sg-996-MyASG-wcpAJlKrrjje
 Parameters:
   VpcId:
     Type: AWS::EC2::VPC::Id
@@ -27,11 +27,11 @@ Resources:
       DesiredCapacity: 2
       LaunchTemplate:
         LaunchTemplateId: !Ref LaunchTemplateId
-        Version: 1
+        Version: 2
       HealthCheckType: EC2
       HealthCheckGracePeriod: 300
       NotificationConfigurations:
-        - TopicARN: arn:aws:sns:ap-south-1:533266961622:asg-instance-alerts
+        - TopicARN: arn:aws:sns:ap-south-1:533266961622:ASG-instance-activity
           NotificationTypes:
             - autoscaling:EC2_INSTANCE_LAUNCH
             - autoscaling:EC2_INSTANCE_LAUNCH_ERROR

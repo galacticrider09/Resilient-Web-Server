@@ -7,7 +7,6 @@ aws cloudformation create-stack \
     --capabilities CAPABILITY_IAM
 #created DB stack using this command 👆
 
-
 aws cloudformation create-stack \
     --stack-name noti-stack-996 \
     --template-body file://~/coding_folder/cloud-formation-templates/notification.yaml\
@@ -73,3 +72,9 @@ aws cloudformation update-stack \
   --template-body file://~/coding_folder/cloud-formation-templates/auto-scaling-group.yaml\
   --capabilities CAPABILITY_IAM
 #we have to use this command to update the stack with changes
+
+aws cloudformation create-stack \
+  --stack-name  CLB-creation-996 \
+  --template-body file://~/coding_folder/cloud-formation-templates/classic-load-balancer.yaml\
+  --capabilities CAPABILITY_IAM
+#created classic load balancer with this command and the yaml template

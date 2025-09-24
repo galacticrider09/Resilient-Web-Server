@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Classic Load Balancer only (to be attached manually to an existing ASG)
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Default: vpc-0737683c8fa2468af
+    Description: VPC for the Load Balancer
+
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Default: subnet-0a0d6e47df7bc4e87,subnet-00431e5b4f9f0e0f3,subnet-0709e443feab5313f
+    Description: Public subnets for the Load Balancer
+
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Default: sg-022bb95f37bbbce81
+    Description: Security Group for the Load Balancer
+
+Resources:
+
+  MyClassicLB:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      LoadBalancerName: my-classic-lb
+      Scheme: internet-facing   # makes it public
+      SecurityGroups:
+        - !Ref SecurityGroupId
+      Subnets: !Ref SubnetIds
+      Listeners:
+        - LoadBalancerPort: '80'
+          InstancePort: '80'
+          Protocol: HTTP
+      HealthCheck:
+        Target: HTTP:80/
+        HealthyThreshold: '3'
+        UnhealthyThreshold: '5'
+        Interval: '30'
+        Timeout: '5'
+
+Outputs:
+  CLBDNSName:
+    Description: DNS name of the Classic Load Balancer
+    Value: !GetAtt MyClassicLB.DNSName
