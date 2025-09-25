@@ -1,10 +1,10 @@
-Resilient Web Server which can auto heal and expand itself. 
+#*Resilient Web Server which can auto heal and expand itself.
 Using AWS CloudFormation. 
 
 Task 1 :
 1.1 : create a public S3 bucket which holds the index.html file.
       <img width="1145" height="535" alt="Screenshot 2025-09-24 at 11 09 21 AM" src="https://github.com/user-attachments/assets/b57a7b45-790f-4dd3-a973-ab68918ca103" />
-      The database stack was created using the aws clf and /database.yaml template was used.
+      The database stack was created using the aws clf and database.yaml template was used.
       <img width="1441" height="312" alt="Screenshot 2025-09-25 at 1 48 31 AM" src="https://github.com/user-attachments/assets/16d6106b-e4bb-48be-87eb-1c4d3a78d180" />
       This S3 bucket was created.
       <img width="745" height="252" alt="Screenshot 2025-09-24 at 11 22 36 AM" src="https://github.com/user-attachments/assets/d7275a0d-3fa7-4c6d-b54f-3b7b35a57b89" />
