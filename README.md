@@ -102,7 +102,7 @@ site 2 with different server and ip.<br/>
 ---
 
 ### test 2 : 
-Increase CPU utilisation of the instances to check if the new instance gets created.<br/>
+Increase CPU utilisation of the instances to check if the new instance is created.<br/>
 <img width="1508" height="394" alt="Screenshot 2025-09-25 at 1 23 28 AM" src="https://github.com/user-attachments/assets/d77a319a-055e-40e3-9e48-bfaff103d34b" /><br/>
 increased the cpu utilisation to 100% .<br/>
 <img width="1437" height="448" alt="Screenshot 2025-09-25 at 1 32 44 AM" src="https://github.com/user-attachments/assets/daf493ca-80d6-45cd-926c-5127ed2bb5f1" /><br/>
