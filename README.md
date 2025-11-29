@@ -2,6 +2,8 @@
 > [!NOTE]
 > Using AWS CloudFormation.
 ---
+This whole project is made as IAC and all the templates can be used by anyone to create their own resources on cloudFormation.
+
 ### Task 1 :
 **1.1** : create a public S3 bucket which holds the [_index.html_](/project_website/index.html) file.<br/>
       <img width="1145" height="535" alt="Screenshot 2025-09-24 at 11 09 21 AM" src="https://github.com/user-attachments/assets/b57a7b45-790f-4dd3-a973-ab68918ca103" /><br/>
