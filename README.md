@@ -2,7 +2,7 @@
 > [!NOTE]
 > Using AWS CloudFormation.
 ---
-This whole project is made as IAC and all the templates can be used by anyone to create their own resources on cloudFormation.
+This project is built entirely using Infrastructure as Code (IaC), with reusable CloudFormation templates that can be used by anyone to provision their own cloud resources.
 
 ### Task 1 :
 **1.1** : create a public S3 bucket which holds the [_index.html_](/project_website/index.html) file.<br/>
